@@ -1,10 +1,10 @@
-package Lox;
+package Core;
+import static Core.TokenType.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import static Lox.TokenType.*; 
+import java.util.Map; 
 
 class Scanner {
     private final String source;
@@ -120,13 +120,11 @@ class Scanner {
                     // A comment goes until the end of the line.
                     while (peek() != '\n' && !isAtEnd())
                         advance();
-                } 
-                else {
+                } else {
                     addToken(SLASH);
                 }
-                
-                break;
 
+                break;
 
             case ' ':
             case '\r':
@@ -142,23 +140,21 @@ class Scanner {
             case '"':
                 string();
                 break;
-            
 
             default:
                 if (isDigit(c)) {
                     number();
-                } 
-                else if (isAlpha(c)) {
+                } else if (isAlpha(c)) {
                     // We assume any lexeme starting with a letter or underscore is an 
                     //identifier.
                     identifier();
-                }
-                else {
+                } else {
                     Lox.error(line, "Unexpected character.");
                 }
                 break;
 
         }
+
     }
  
     private boolean match(char expected) {

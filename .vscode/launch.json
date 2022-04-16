@@ -8,6 +8,13 @@
             "type": "java",
             "name": "Launch Lox",
             "request": "launch",
+            "mainClass": "Core.Lox",
+            "projectName": "Lox-Java-Interpreter_5686528d"
+        },
+        {
+            "type": "java",
+            "name": "Launch Lox",
+            "request": "launch",
             "mainClass": "Lox.Lox",
             "projectName": "Lox-Java-Interpreter_5686528d"
         },
