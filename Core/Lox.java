@@ -15,8 +15,9 @@ public class Lox {
     //#endregion
 
     //#region Private Fields
-
+    private static final Interpreter interpreter = new Interpreter();
     static boolean hadError = false;
+    static boolean hadRuntimeError = false;
     
     //#endregion
 
@@ -48,7 +49,10 @@ public class Lox {
         run(new String(bytes, Charset.defaultCharset()));
 
         // Indicate an error in the exit code.
-        if (hadError) System.exit(65);
+        if (hadError)
+            System.exit(65);
+        if (hadRuntimeError)
+            System.exit(70);
     }
 
     // If no files are passed, it will create an interactive prompt
@@ -75,8 +79,11 @@ public class Lox {
         Parser parser = new Parser(tokens);
         Expr expression = parser.parse();
         // Stop if there was a syntax error.
-        if (hadError) return;
-        System.out.println(new AstPrinter().print(expression));
+        if (hadError)
+            return;
+            
+        interpreter.interpret(expression);
+        //System.out.println(new AstPrinter().print(expression));
 
 
         // For now, just print the tokens.
@@ -101,6 +108,12 @@ public class Lox {
         } else {
             report(token.line, " at '" + token.lexeme + "'", message);
         }
+    }
+ 
+    static void runtimeError(RuntimeError error) {
+        System.err.println(error.getMessage() +
+                "\n[line " + error.token.line + "]");
+        hadRuntimeError = true;
     }
  
     //#endregion
