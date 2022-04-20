@@ -3,7 +3,13 @@ equality → comparison ( ( "!=" | "==" ) comparison )* ;
 comparison → term ( ( ">" | ">=" | "<" | "<=" ) term )* ;
 term → factor ( ( "-" | "+" ) factor )* ;
 factor → unary ( ( "/" | "*" ) unary )* ;
-unary → ( "!" | "-" ) unary
- | primary ;
-primary → NUMBER | STRING | "true" | "false" | "nil"
- | "(" expression ")" ;
+unary → ( "!" | "-" ) unary | primary ;
+primary → NUMBER | STRING | "true" | "false" | "nil" | "(" expression ")" | IDENTIFIER ;
+
+
+program → declaration* EOF ;
+declaration → varDecl | statement ;
+statement → exprStmt | printStmt ;
+varDecl → "var" IDENTIFIER ( "=" expression )? ";" 
+exprStmt → expression ";" ;
+printStmt → "print" expression ";" ;

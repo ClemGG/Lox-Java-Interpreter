@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch GenerateAst",
+            "request": "launch",
+            "mainClass": "Tool.GenerateAst",
+            "projectName": "Lox-Java-Interpreter_5686528d"
+        },
+        {
+            "type": "java",
             "name": "Launch AstPrinter",
             "request": "launch",
             "mainClass": "Core.AstPrinter",
