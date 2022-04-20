@@ -1,4 +1,7 @@
-expression → equality ;
+expression → assignment ;
+assignment → IDENTIFIER "=" assignment | logic_or ;
+logic_or → logic_and ( "or" logic_and )* ;
+logic_and → equality ( "and" equality )* ;
 equality → comparison ( ( "!=" | "==" ) comparison )* ;
 comparison → term ( ( ">" | ">=" | "<" | "<=" ) term )* ;
 term → factor ( ( "-" | "+" ) factor )* ;
@@ -9,7 +12,11 @@ primary → NUMBER | STRING | "true" | "false" | "nil" | "(" expression ")" | ID
 
 program → declaration* EOF ;
 declaration → varDecl | statement ;
-statement → exprStmt | printStmt ;
+statement → exprStmt | forStmt | ifStmt | printStmt | whileStmt | block ;
+forStmt → "for" "(" ( varDecl | exprStmt | ";" ) expression? ";" expression? ")" statement ;
+whileStmt → "while" "(" expression ")" statement ;
+ifStmt → "if" "(" expression ")" statement ( "else" statement )? ;
+block → "{" declaration* "}" ;
 varDecl → "var" IDENTIFIER ( "=" expression )? ";" 
 exprStmt → expression ";" ;
 printStmt → "print" expression ";" ;
