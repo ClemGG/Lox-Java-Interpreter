@@ -8,6 +8,13 @@
             "type": "java",
             "name": "Launch GenerateAst",
             "request": "launch",
+            "mainClass": "GenerateAst",
+            "projectName": "Lox-Java-Interpreter_5686528d"
+        },
+        {
+            "type": "java",
+            "name": "Launch GenerateAst",
+            "request": "launch",
             "mainClass": "Tool.GenerateAst",
             "projectName": "Lox-Java-Interpreter_5686528d"
         },

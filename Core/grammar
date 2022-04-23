@@ -1,3 +1,18 @@
+program → declaration* EOF ;
+declaration → funDecl | varDecl | statement ;
+funDecl → "fun" function ;
+function → IDENTIFIER "(" parameters? ")" block ;
+parameters → IDENTIFIER ( "," IDENTIFIER )* ;
+statement → exprStmt | forStmt | ifStmt | printStmt | returnStmt | whileStmt | block ;
+returnStmt → "return" expression? ";" ;
+forStmt → "for" "(" ( varDecl | exprStmt | ";" ) expression? ";" expression? ")" statement ;
+whileStmt → "while" "(" expression ")" statement ;
+ifStmt → "if" "(" expression ")" statement ( "else" statement )? ;
+block → "{" declaration* "}" ;
+varDecl → "var" IDENTIFIER ( "=" expression )? ";" 
+exprStmt → expression ";" ;
+printStmt → "print" expression ";" ;
+
 expression → assignment ;
 assignment → IDENTIFIER "=" assignment | logic_or ;
 logic_or → logic_and ( "or" logic_and )* ;
@@ -6,17 +21,7 @@ equality → comparison ( ( "!=" | "==" ) comparison )* ;
 comparison → term ( ( ">" | ">=" | "<" | "<=" ) term )* ;
 term → factor ( ( "-" | "+" ) factor )* ;
 factor → unary ( ( "/" | "*" ) unary )* ;
-unary → ( "!" | "-" ) unary | primary ;
+unary → ( "!" | "-" ) unary | call ;
+call → primary ( "(" arguments? ")" )* ;
+arguments → expression ( "," expression )* ;
 primary → NUMBER | STRING | "true" | "false" | "nil" | "(" expression ")" | IDENTIFIER ;
-
-
-program → declaration* EOF ;
-declaration → varDecl | statement ;
-statement → exprStmt | forStmt | ifStmt | printStmt | whileStmt | block ;
-forStmt → "for" "(" ( varDecl | exprStmt | ";" ) expression? ";" expression? ")" statement ;
-whileStmt → "while" "(" expression ")" statement ;
-ifStmt → "if" "(" expression ")" statement ( "else" statement )? ;
-block → "{" declaration* "}" ;
-varDecl → "var" IDENTIFIER ( "=" expression )? ";" 
-exprStmt → expression ";" ;
-printStmt → "print" expression ";" ;
